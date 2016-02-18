@@ -136,7 +136,14 @@ function some(array, predicate) {
 	for (var i = 0; i < array.length; i++) {
 		if (predicate == array[i]) return true
 	}
-	return false;
+	return false; 
+}
+	
+function every(array, predicate){
+	for (var i = 0; i < array.length; i++){
+		if (!(predicate==array[i])) return false
+	}
+	return true;
 }
 
 
@@ -146,3 +153,6 @@ exports.couple = couple;
 exports.groupByCentury = groupByCentury;
 exports.lifeExpectancy = lifeExpectancy;
 exports.withTransform = withTransform;
+exports.some = some;
+exports.every = every;
+

@@ -147,7 +147,7 @@ describe('exercice', function () {
 	})
 	it('should successfully return with _.transform', function () {
 		var res = exercice.withTransform(pairCenturyAge);
-		console.log(res);
+		//console.log(res);
 		expect(res).to.deep.equal(
 			{
 				'17': 53,
@@ -156,11 +156,20 @@ describe('exercice', function () {
 			}
 			);
 	})
-	it('should successfully return true if predicate in array, else false'), function(){
-		var res = exercice.some([4,4,2,3],2);
-		expect(res).to.be(true);
-		var res = exercice.some([4,4,2,3],1);
-		expect(res).to.be(false);
-	}
+
+	it('should successfully return true if predicate in array, else false', function () {
+		var res = exercice.some([4, 4, 2, 3], 2);
+		expect(res).to.equal(true);
+		var res2 = exercice.some([4,4,2,3],1);
+		expect(res2).to.equal(false);
+	})
+	
+	it('should successfully return true if predicate in array, else false', function () {
+		var res = exercice.every([4, 4, 4, 4], 4);
+		expect(res).to.equal(true);
+		var res2 = exercice.every([4,4,2,3],4);
+		expect(res2).to.equal(false);
+	})
+
 
 })

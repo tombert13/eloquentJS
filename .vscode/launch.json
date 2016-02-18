@@ -5,9 +5,9 @@
 			"name": "Launch",
 			"type": "node",
 			"request": "launch",
-			"program": "exercice.spec.js",
+			"program": "./node_modules/mocha/bin/_mocha",
 			"stopOnEntry": false,
-			"args": [],
+			"args": ["exercice.spec.js"],
 			"cwd": ".",
 			"runtimeExecutable": null,
 			"runtimeArgs": [
