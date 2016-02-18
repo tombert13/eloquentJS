@@ -118,7 +118,7 @@ function lifeExpectancy(groupedDates) {
 
 	})
 
-	var res = _.fromPairs(
+	var res = _.fromPairs(//how tu use _.fromPairs
 		_.map(tmp, function (obj) {
 			return [obj.century, obj.age]
 		})
@@ -126,7 +126,7 @@ function lifeExpectancy(groupedDates) {
 	return res;
 }
 
-function withTransform(pairCenturyAge) {
+function withTransform(pairCenturyAge) {//how to use _.transform
 	return _.transform(pairCenturyAge, function (result, value, key) {
 		result[value.century] = value.age;
 	}, {})
