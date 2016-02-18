@@ -82,21 +82,8 @@ function flatten(array) {
 	}, []);
 }
 
-function lifeExpectancy(ancestry) {
-	var lifeTime = ancestry.map(function (person) {
-		return {
-			born: person.born,
-			died: person.died
-		}
-	});
-	var centuries = lifeTime.map(function (person) {
-		return century(person.died);
-	}).
-	return centuries;
-}
-
 function century(dieDate) {
-	return Math.ceil(dieDate / 100)
+	return Math.ceil(dieDate / 100);
 }
 
 function average(array) {
@@ -104,7 +91,58 @@ function average(array) {
 	return array.reduce(plus) / array.length;
 }
 
+function couple(ancestry) {
+	return ancestry.map(function (person) {
+		return {
+			born: person.born,
+			died: person.died
+		}
+	})
+}
 
-//exports.forEach = forEach;
+function groupByCentury(bornDiedDate) {
+	return _.groupBy(bornDiedDate, function (value) {
+		return century(value.died);
+	})
+}
+
+function lifeExpectancy(groupedDates) {
+
+	var tmp = _.map(groupedDates, function (value, key) {
+		return {
+			century: key,
+			age: _.round(average(_.map(value, function (elem, key) {
+				return elem.died - elem.born;
+			})), 1)
+		}
+
+	})
+
+	var res = _.fromPairs(
+		_.map(tmp, function (obj) {
+			return [obj.century, obj.age]
+		})
+		)
+	return res;
+}
+
+function withTransform(pairCenturyAge) {
+	return _.transform(pairCenturyAge, function (result, value, key) {
+		result[value.century] = value.age;
+	}, {})
+}
+
+function some(array, predicate) {
+	for (var i = 0; i < array.length; i++) {
+		if (predicate == array[i]) return true
+	}
+	return false;
+}
+
+
+
 exports.flatten = flatten;
+exports.couple = couple;
+exports.groupByCentury = groupByCentury;
 exports.lifeExpectancy = lifeExpectancy;
+exports.withTransform = withTransform;
