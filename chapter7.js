@@ -20,11 +20,13 @@ Vector.prototype.plus = function (other) {
     return new Vector(this.x + other.x, this.y + other.y);
 };
 
+/*
 var grid = [" top left ", " top middle ", " top right ",
     " bottom left ", " bottom middle ", " bottom right "];
 
 console.log(grid[2 + (1 * 3)]);
 // → bottom right
+*/
 
 function Grid(width, height) {
     this.space = new Array(width * height);
@@ -53,3 +55,29 @@ grid.set(new Vector(1, 1), " X ");
 console.log(grid.get(new Vector(1, 1)));
 // → X
 console.log(grid)
+
+var directions = {
+    " n ": new Vector(0, -1),
+    " ne ": new Vector(1, -1),
+    " e ": new Vector(1, 0),
+    " se ": new Vector(1, 1),
+    " s ": new Vector(0, 1),
+    " sw ": new Vector(-1, 1),
+    " w ": new Vector(-1, 0),
+    " nw ": new Vector(-1, -1)
+};
+
+function randomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+var directionNames = " n ne e se s sw w nw ".split(" ");
+
+function BouncingCritter() {
+    this.direction = randomElement(directionNames);
+};
+
+BouncingCritter.prototype.act = function (view) {
+    if (view.look(this.direction) != " ")
+        this.direction = view.find(" ") || " s ";
+    return { type: " move ", direction: this.direction };
+};
