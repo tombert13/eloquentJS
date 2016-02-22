@@ -32,16 +32,16 @@ function Grid(width, height) {
     this.height = height;
 }
 
-Grid.prototype.isInside = function (vector) {
+Grid.prototype.isInside = function (vector) {//true if inside, else false
     return vector.x >= 0 && vector.x < this.width &&
         vector.y >= 0 && vector.y < this.height;
 };
 
-Grid.prototype.get = function (vector) {
+Grid.prototype.get = function (vector) {// return the element at position vector(x,y)
     return this.space[vector.x + this.width * vector.y];
 };
 
-Grid.prototype.set = function (vector, value) {
+Grid.prototype.set = function (vector, value) {// define the element at given position
     this.space[vector.x + this.width * vector.y] = value;
 };
 
@@ -52,3 +52,4 @@ console.log(grid.get(new Vector(1, 1)));
 grid.set(new Vector(1, 1), " X ");
 console.log(grid.get(new Vector(1, 1)));
 // → X
+console.log(grid)
