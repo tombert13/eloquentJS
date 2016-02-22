@@ -1,80 +1,4 @@
-/*
-function speak(line) {
-	console.log("The " + this.type + " rabbit says '" + line + "'");
-};
-
-var whiteRabbit = {
-	type: "white",
-	mood: "happy",
-	speak: speak
-};
-
-var fatRabbit = {
-	type: "super fat",
-	mood: "angry",
-	speak: speak
-};
-
-whiteRabbit.speak("I'm white");
-
-fatRabbit.speak("I'm fat");
-
-
-speak.apply(fatRabbit, ["Burp !"]);//apply the speak function with fat rabbit as 'this' value, and 
-//speak arguments has to be between brackets.
-
-speak.call({ type: "old" }, "Oh my.");//calls the speak function with 'this' pointing to the 
-//properties between curly braces. here the arguments doesn't
-//need to be between brackets. 
-
-function speakMore(line) {
-	console.log("The " + this.type + " rabbit is " + this.mood + " and says " + line + ".");
-};
-
-speakMore.apply(whiteRabbit, ["Hello"]);
-
-speakMore.call({ type: "super", mood: "spoiled", age: "12" }, 'I want more');
-
-
-//constructors
-function Rabbit(type) {
-	this.type = type;
-}
-
-var killerRabbit = new Rabbit(" killer "); //killerRabbit = {type: "killer"}
-var blackRabbit = new Rabbit(" black ");
-
-console.log(killerRabbit.type);
-
-Rabbit.prototype.speak = function (line) {
-	console.log(" The " + this.type + " rabbit says '" +
-		line + " '");
-};
-
-blackRabbit = {
-	type: "black",
-	prototype:{
-		speak: speak
-	}
-}
-
-blackRabbit.speak(" Doom ...");
-// → The black rabbit says ' Doom ... '
-
-var map = {};
-function storeIn(key, value){
-	map [key] = value;
-}
-
-storeIn('Tom', 'Bertrand');
-storeIn('jean', 'dupont');
-
-
-console.log(map);
-*/
-
-/*
-A vector type
+/*A vector type
 Write a constructor Vector that represents a vector in two-dimensional
 space. It takes x and y parameters (numbers), which it should save to
 properties of the same name.
@@ -104,3 +28,34 @@ var vector2 = new Vector(2, 8);
 
 var res = vector1.plus(vector2);
 console.log(res);
+
+/*Another cell
+Implement a cell type named StretchCell(inner, width, height) that conforms
+to the table cell interface described earlier in the chapter. It should
+wrap another cell (like UnderlinedCell does) and ensure that the resulting
+cell has at least the given width and height, even if the inner cell would
+naturally be smaller.*/
+
+function StretchCell(inner, width, height) {
+  this.inner = inner;
+  this.width = width;
+  this.height = height;
+}
+
+StretchCell.prototype.minWidth = function() {
+  return Math.max(this.width, this.inner.minWidth());
+};
+StretchCell.prototype.minHeight = function() {
+  return Math.max(this.height, this.inner.minHeight());
+};
+StretchCell.prototype.draw = function(width, height) {
+  return this.inner.draw(width, height);
+};
+
+var sc = new StretchCell(new TextCell("abc"), 1, 2);
+console.log(sc.minWidth());
+// → 3
+console.log(sc.minHeight());
+// → 2
+console.log(sc.draw(3, 2));
+// → ["abc", "   "]
