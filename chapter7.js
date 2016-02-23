@@ -305,4 +305,7 @@ var valley = new LifelikeWorld(
    "*": Plant}
 );
 
-console.log(world.toString());
+for ( var i = 0; i < 20; i ++) {
+world . turn () ;
+console . log ( world . toString () ) ;
+}
